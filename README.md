@@ -124,6 +124,3 @@ Trong bài tập lớn này, chúng ta sẽ triển khai trò chơi Bomberman b�
 
 ---
 
-## Giấy phép
-
-* Dự án này tuân theo giấy phép MIT.
