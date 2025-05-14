@@ -122,5 +122,6 @@ Board --> Keyboard
 Board --> Sound
 Board --> Screen
 Board --> Frame
+Board ..|> IRender
 FilelevelLoader --> Board
 @enduml
