@@ -1,0 +1,126 @@
+@startuml
+
+abstract class AI{}
+class AILow{}
+class AIMedium{}
+
+abstract class Enemy{}
+class Doll{}
+class Balloon{}
+class Oneal{}
+
+abstract class Character{}
+class Bomber{}
+
+abstract class Item{}
+class BomItem{}
+class FlameItem{}
+class SpeedItem{}
+
+class DestroyableTile{}
+class Brick{}
+
+abstract class Tile{}
+class Wall{}
+class Portal{}
+class Grass{}
+
+class Bom{}
+class Flame{}
+class FlameSegment{}
+
+abstract class AnimateEntity{}
+abstract class Entity{}
+class LayerEntity{}
+class Message{}
+
+interface IRender{}
+class Screen{}
+class Sprite{}
+interface SpriteSheetInterface{}
+class SpriteSheet{}
+class SpriteSheet1{}
+
+class GameException{}
+class Loadlevelexception{}
+
+class JPanel{}
+class JFrame{}
+class Frame{}
+class GamePanel{}
+class InfoPanel{}
+class MainMenuPanel{}
+
+class Keyboard{}
+
+class LevelLoader {}
+class FilelevelLoader {}
+class Coordinate {}
+
+class Board{}
+class BombermanGame{}
+class Game{}
+
+class Sound{}
+
+AI <|-- AILow
+AI <|-- AIMedium
+
+Enemy <|-- Doll
+Enemy <|-- Balloon
+Enemy <|-- Oneal
+Enemy *-- AI
+
+Character <|-- Enemy
+Character <|-- Bomber
+
+Item <|-- BomItem
+Item <|-- FlameItem
+Item <|-- SpeedItem
+
+DestroyableTile <|-- Brick
+
+Tile <|-- Item
+Tile <|-- DestroyableTile
+Tile <|-- Wall
+Tile <|-- Grass
+Tile <|-- Portal
+
+AnimateEntity <|-- Bom
+AnimateEntity <|-- Flame
+AnimateEntity <|-- FlameSegment
+
+Entity <|-- AnimateEntity
+Entity <|-- Character
+Entity <|-- Tile
+Entity <|-- Message
+Entity <|-- LayerEntity
+
+SpriteSheetInterface *-- SpriteSheet  : contains
+SpriteSheetInterface *-- SpriteSheet1 : contains
+Sprite ..> SpriteSheet
+Sprite ..> SpriteSheet1 
+Screen --> Sprite
+
+GameException <|-- Loadlevelexception
+
+JFrame <|-- Frame
+JPanel <|-- GamePanel
+JPanel <|-- InfoPanel
+JPanel <|-- MainMenuPanel
+MainMenuPanel *-- Frame
+InfoPanel *-- GamePanel
+GamePanel *-- Frame
+
+LevelLoader <|-- FilelevelLoader
+FilelevelLoader --> Coordinate
+
+Board --> Entity
+Game --> Board
+Board -->LevelLoader
+Board --> Keyboard
+Board --> Sound
+Board --> Screen
+Board --> Frame
+FilelevelLoader --> Board
+@enduml
