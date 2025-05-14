@@ -11,6 +11,7 @@ import sound.Sound;
  */
 
 public class FlameItem extends Item {
+    private boolean used = false;
 	public FlameItem(int x, int y, Sprite sprite) {
 		super(x, y, sprite);
 	}
@@ -18,10 +19,12 @@ public class FlameItem extends Item {
 	@Override
     // xử lý Bomber ăn Item
 	public boolean collide(Entity e) {
-            if (e instanceof Bomber) {
-                Sound.play("Item");
-                Game.addBom_radius(1);
-                remove();
+        if (e instanceof Bomber && !used) {
+            used = true;
+            Sound.play("Item");
+            Game.setBom_radius(1);
+            this.remove();
+            return true;
         }
         return false;
 	}

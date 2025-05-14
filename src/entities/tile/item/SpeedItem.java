@@ -20,8 +20,9 @@ public class SpeedItem extends Item {
 	public boolean collide(Entity e) {
             if (e instanceof Bomber) {
                 Sound.play("Item");
-                Game.addBomber_speed(0.5);
+                Game.setBomber_speed(0.5);
                 remove();
+                return true;
             }
         return false;
 	}
