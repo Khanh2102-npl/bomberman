@@ -1,7 +1,7 @@
 package entities;
 
 import graphics.Screen;
-import entities.tile.destroyable.Destroyable;
+import entities.tile.destroyable.DestroyableTile;
 
 import java.util.LinkedList;
 
@@ -20,8 +20,8 @@ public class LayerEntity extends Entity{
             entities.add(entity[i]);
 
             if(i > 1){
-                if(entity[i] instanceof Destroyable){
-                    ((Destroyable)entity[i]).addBelowSprite(entity[i-1].getSprite());
+                if(entity[i] instanceof DestroyableTile){
+                    ((DestroyableTile)entity[i]).AddBelowSprite(entity[i-1].getSprite());
                 }
             }
         }
@@ -31,14 +31,18 @@ public class LayerEntity extends Entity{
     @Override
     public void update(){
         cleanRemove();
-        getTopEntity().update();
+        for (Entity e : entities) {
+            e.update();
+        }
     }
     public void cleanRemove(){
-        Entity top = getTopEntity();
-        
-        if(top.isRemove()){
-            entities.removeLast();
+        LinkedList<Entity> stillActive = new LinkedList<>();
+        for (Entity e : entities) {
+            if (!e.isRemove()) {
+             stillActive.add(e);
+            }
         }
+    entities = stillActive;
     }
     public Entity getTopEntity(){
         return entities.getLast();
