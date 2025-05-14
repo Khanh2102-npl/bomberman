@@ -9,8 +9,11 @@ import java.awt.event.KeyListener;
  */
 
 public class Keyboard implements KeyListener{
-    private boolean[] keys = new boolean[150];
+    private boolean[] keys = new boolean[256];
     public boolean up, down, left, right, space;
+    public boolean enter;
+    public boolean enterPressed = false;
+
 
     public void update(){
         up = keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_U];
@@ -18,19 +21,40 @@ public class Keyboard implements KeyListener{
         left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
         right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
         space = keys[KeyEvent.VK_SPACE];
+
+        // Bắt đầu xử lý phím Enter
+        if (!enter && keys[KeyEvent.VK_ENTER]) {
+            enterPressed = true;
+        } else {
+            enterPressed = false;
+        }
+        
+        enter = keys[KeyEvent.VK_ENTER];
     }
 
     @Override
-    public void keyTyped(KeyEvent t){
+    public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+        if (code >= 0 && code < keys.length) {
+            keys[code] = true;
+        }
     }
 
     @Override
-    public void keyPressed(KeyEvent t){
-        keys[t.getKeyCode()] = true;
+    public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode();
+        if (code >= 0 && code < keys.length) {
+            keys[code] = false;
+        }
     }
 
     @Override
-    public void keyReleased(KeyEvent t){
-        keys[t.getKeyCode()] = false;
+    public void keyTyped(KeyEvent e) {
+    }
+
+    public void releaseKey(int keyCode) {
+        if (keyCode >= 0 && keyCode < keys.length) {
+            keys[keyCode] = false;
+        }
     }
 }
