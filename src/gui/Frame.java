@@ -10,38 +10,49 @@ import java.awt.*;
  * Tập hợp các thành phần như vùng chơi và bảng thông tin
  */
 
-public class Frame extends JFrame{
-    public GamePanel gamepanel;
-    private JPanel containerpanel;
-    private InfoPanel infopanel;
+public class Frame extends JFrame {
+    private MainMenuPanel mainMenu;
     private Game game;
 
-    public Frame(){
-        containerpanel = new JPanel(new BorderLayout());
-        gamepanel = new GamePanel(this);
-        infopanel = new InfoPanel(gamepanel.getGame());
-
-        containerpanel.add(infopanel, BorderLayout.PAGE_START);
-        containerpanel.add(gamepanel, BorderLayout.PAGE_END);
-
-        game = gamepanel.getGame();
-
-        add(containerpanel);
-
+    public Frame() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Bomberman Game");
+        setLayout(new CardLayout());
+
+        mainMenu = new MainMenuPanel(this);
+        add(mainMenu, "Menu");
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public void startGame() {
+        if (game == null) {
+            game = new Game(this);
+            add(game, "Game");
+            pack(); // cập nhật kích thước lại
+        }
+
+        CardLayout layout = (CardLayout) getContentPane().getLayout();
+        layout.show(getContentPane(), "Game");
+
+        // GỌI FOCUS Ở ĐÂY
+        SwingUtilities.invokeLater(() -> {
+            game.requestFocusInWindow();  // đảm bảo gọi sau khi hiển thị
+        });
 
         game.start();
     }
 
-    public void setTime(int time){
-        infopanel.setTime(time);
+
+
+    public void setTime(int time) {
+        // nếu bạn cần cập nhật thời gian
     }
 
-    public void setPoint(int point){
-        infopanel.setPoint(point);
+    public void setPoint(int point) {
+        // nếu bạn cần cập nhật điểm
     }
 }

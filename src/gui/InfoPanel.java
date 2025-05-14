@@ -16,11 +16,11 @@ public class InfoPanel extends JPanel{
     public InfoPanel(Game game){
         setLayout(new GridBagLayout());
 
-        timeLabel = new JLabel("Time: ", game.getBoard().getTime());
+        timeLabel = new JLabel("Time: " + game.getBoard().getTime());
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        pointLabel = new JLabel("Point: ", game.getBoard().getPoint());
+        pointLabel = new JLabel("Point: " + game.getBoard().getPoint());
         pointLabel.setForeground(Color.WHITE);
         pointLabel.setHorizontalAlignment(JLabel.CENTER);
 
